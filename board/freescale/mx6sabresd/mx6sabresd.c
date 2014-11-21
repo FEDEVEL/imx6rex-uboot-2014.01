@@ -223,23 +223,19 @@ int board_mmc_init(bd_t *bis)
 
 int mx6_rgmii_rework(struct phy_device *phydev)
 {
-	unsigned short val;
 
-	/* To enable AR8031 ouput a 125MHz clk from CLK_25M */
-	phy_write(phydev, MDIO_DEVAD_NONE, 0xd, 0x7);
-	phy_write(phydev, MDIO_DEVAD_NONE, 0xe, 0x8016);
-	phy_write(phydev, MDIO_DEVAD_NONE, 0xd, 0x4007);
+	//added iMX6 Rex KSZ9021 support, taken from Saberlite
+	/* enable master mode, force phy to 100Mbps */
+	//phy_write(devname, phy_addr, 0x9, 0x1c00);
 
-	val = phy_read(phydev, MDIO_DEVAD_NONE, 0xe);
-	val &= 0xffe3;
-	val |= 0x18;
-	phy_write(phydev, MDIO_DEVAD_NONE, 0xe, val);
+	/* min rx data delay */
+	phy_write(devname, phy_addr, 0x0b, 0x8105);
+	phy_write(devname, phy_addr, 0x0c, 0x0000);
 
-	/* introduce tx clock delay */
-	phy_write(phydev, MDIO_DEVAD_NONE, 0x1d, 0x5);
-	val = phy_read(phydev, MDIO_DEVAD_NONE, 0x1e);
-	val |= 0x0100;
-	phy_write(phydev, MDIO_DEVAD_NONE, 0x1e, val);
+	/* max rx/tx clock delay, min rx/tx control delay */
+	phy_write(devname, phy_addr, 0x0b, 0x8104);
+	phy_write(devname, phy_addr, 0x0c, 0xf0f0);
+	phy_write(devname, phy_addr, 0x0b, 0x104);
 
 	return 0;
 }
