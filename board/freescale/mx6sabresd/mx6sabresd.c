@@ -229,13 +229,13 @@ int mx6_rgmii_rework(struct phy_device *phydev)
 	//phy_write(devname, phy_addr, 0x9, 0x1c00);
 
 	/* min rx data delay */
-	phy_write(devname, phy_addr, 0x0b, 0x8105);
-	phy_write(devname, phy_addr, 0x0c, 0x0000);
+	phy_write(phydev, MDIO_DEVAD_NONE, 0x0b, 0x8105);
+	phy_write(phydev, MDIO_DEVAD_NONE, 0x0c, 0x0000);
 
 	/* max rx/tx clock delay, min rx/tx control delay */
-	phy_write(devname, phy_addr, 0x0b, 0x8104);
-	phy_write(devname, phy_addr, 0x0c, 0xf0f0);
-	phy_write(devname, phy_addr, 0x0b, 0x104);
+	phy_write(phydev, MDIO_DEVAD_NONE, 0x0b, 0x8104);
+	phy_write(phydev, MDIO_DEVAD_NONE, 0x0c, 0xf0f0);
+	phy_write(phydev, MDIO_DEVAD_NONE, 0x0b, 0x104);
 
 	return 0;
 }
@@ -498,6 +498,6 @@ int board_late_init(void)
 
 int checkboard(void)
 {
-	puts("Board: iMX6 Rex\n");
+	puts("Board: iMX6 Rex 21-NOV-2014 10:58\n");
 	return 0;
 }
