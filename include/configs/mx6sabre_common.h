@@ -70,12 +70,12 @@
 #define CONFIG_CMD_SF
 #ifdef CONFIG_CMD_SF
 #define CONFIG_SPI_FLASH
-#define CONFIG_SPI_FLASH_STMICRO
+#define CONFIG_SPI_FLASH_SST
 #define CONFIG_MXC_SPI
-#define CONFIG_SF_DEFAULT_BUS		0
-#define CONFIG_SF_DEFAULT_CS		(0 | (IMX_GPIO_NR(4, 9) << 8))
-#define CONFIG_SF_DEFAULT_SPEED		20000000
-#define CONFIG_SF_DEFAULT_MODE		SPI_MODE_0
+#define CONFIG_SF_DEFAULT_BUS		2 //CSPI3 - 1
+#define CONFIG_SF_DEFAULT_CS		(0 | (IMX_GPIO_NR(4, 26) << 8)) //CS is connected to GPIO4_IO26, the first number must be same as bus
+#define CONFIG_SF_DEFAULT_SPEED		25000000
+#define CONFIG_SF_DEFAULT_MODE		(SPI_MODE_0)
 #endif
 
 /* allow to overwrite serial and ethaddr */
@@ -91,7 +91,7 @@
 #define CONFIG_CMD_SETEXPR
 #undef CONFIG_CMD_IMLS
 
-#define CONFIG_BOOTDELAY               1
+#define CONFIG_BOOTDELAY               5
 
 #define CONFIG_LOADADDR                        0x12000000
 #define CONFIG_SYS_TEXT_BASE           0x17800000
